@@ -1,0 +1,12 @@
+--daily count of free trials:
+
+select date_trunc('day', bpt.date), count(distinct bpt.profile_id)
+from dw.store_bagelpointtransaction bpt
+join dw.profiles_profile pp on bpt.profile_id = pp.id 
+where pp.is_tester = false
+and bpt.is_subscription = TRUE
+and bpt.spent_dollars = 0
+and bpt.store_item_id <> 235
+and bpt.date >= '2020-01-20'
+group by 1
+order by 1
